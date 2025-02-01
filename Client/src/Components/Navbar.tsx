@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from '@headlessui/react';
 import { UserCircle, Menu as MenuIcon } from 'lucide-react';
-
 const Navbar = () => {
   return (
     <nav className="bg-slate-900 shadow-lg">
@@ -10,7 +9,9 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <h1 className="text-2xl font-bold text-indigo-600">MentorMatch</h1>
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-customPurple to-blue-500 bg-clip-text text-transparent">
+  UpSkill Connect
+</h1>
             </Link>
           </div>
 

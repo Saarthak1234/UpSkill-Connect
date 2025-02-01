@@ -44,7 +44,7 @@ const Home = () => {
           <div className="flex justify-center space-x-4">
             <button
               onClick={() => window.location.href = '/connect'}
-              className="mt-24 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-indigo-600 bg-gray-200 hover:bg-gray-300"
+              className="mt-24 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-indigo-600 bg-purple-100 hover:bg-gray-300"
             >
               Find a Mentor
             </button>
@@ -114,7 +114,7 @@ const Home = () => {
             </p>
             <button
               onClick={() => window.location.href = '/signup'}
-              className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
+              className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-purple-100 hover:bg-indigo-50"
             >
               Sign up now
             </button>
@@ -126,7 +126,7 @@ const Home = () => {
 };
 
 const FeatureCard = ({ icon, title, description }) => (
-  <div className="bg-white p-6 rounded-lg shadow-md text-center">
+  <div className="bg-customPurple p-6 rounded-lg shadow-md text-center">
     <div className="flex justify-center mb-4">{icon}</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
     <p className="text-gray-600">{description}</p>

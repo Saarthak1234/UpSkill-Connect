@@ -90,9 +90,7 @@ const DoubtSolver = () => {
               </div>
               <div className="prose max-w-none">
                 <p className="text-gray-600">
-                  Here's where the detailed solution will appear, complete with explanations,
-                  step-by-step breakdowns, and relevant examples to help you understand the concept
-                  thoroughly.
+                  Solution here
                 </p>
               </div>
             </div>
