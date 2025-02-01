@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">MentorMatch</h3>
+            <h3 className="text-xl font-bold">UpSkill Connect</h3>
             <p className="text-gray-400">
               Connecting mentors and mentees through intelligent matching and AI-powered learning.
             </p>
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} MentorMatch. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} UpSkill Connect. All rights reserved.</p>
         </div>
       </div>
     </footer>

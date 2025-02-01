@@ -7,7 +7,12 @@ import Counselling from './Counselling/Counselling';
 import Signup from './SignUp/SignUp';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
+import AIChat from './Components/Chatbot';
+import Review from './Images/Review';
+
 import './index.css'; // Ensure Tailwind is included
+import LobbyScreen from './Call/Lobby';
+import RoomPage from './Call/Room';
 
 function App() {
   return (
@@ -20,6 +25,10 @@ function App() {
         <Route path="/counselling" element={<Counselling />} />
         <Route path="/doubts" element={<DoubtSolver />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/chat" element={<AIChat />} />
+        <Route path='/ocr' element={<Review/>}/>
+        <Route path='/lobby' element={<LobbyScreen/>}/>
+        <Route path='/room/:roomid' element={<RoomPage/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>

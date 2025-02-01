@@ -18,8 +18,8 @@ const Navbar = () => {
           <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
             <Link to="/" className="text-zinc-50 hover:text-white">Home</Link>
             <Link to="/Connect" className="text-zinc-50 hover:text-white">Find Mentor</Link>
-            <Link to="/counselling" className="text-zinc-50 hover:text-white">AI Chat</Link>
-            <Link to="/Doubts" className="text-zinc-50 hover:text-white">Doubt Solver</Link>
+            <Link to="/counselling" className="text-zinc-50 hover:text-white">AI Counsellor</Link>
+            <Link to="/chat" className="text-zinc-50 hover:text-white">Chat</Link>
             
             <Link
               to="/login"
