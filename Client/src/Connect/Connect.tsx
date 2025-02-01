@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Search, Filter, Star, Clock, Video } from 'lucide-react';
+import { Star, Clock, Video } from 'lucide-react';
 
 const Connect = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
@@ -44,31 +43,14 @@ const Connect = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-slate-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div className="mb-4 md:mb-0">
             <h1 className="text-3xl font-bold text-gray-900">Find Your Perfect Mentor</h1>
-            <p className="mt-2 text-gray-600">
+            <p className="mt-2 text-purple-100">
               Connect with expert mentors who can guide you on your journey
             </p>
-          </div>
-          
-          <div className="flex space-x-4">
-            <div className="relative">
-              <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Search mentors..."
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50">
-              <Filter className="h-5 w-5 mr-2" />
-              Filters
-            </button>
           </div>
         </div>
 
@@ -81,7 +63,7 @@ const Connect = () => {
                 className={`px-4 py-2 rounded-full whitespace-nowrap ${
                   selectedCategory === category.id
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-white text-gray-700 hover:bg-gray-50'
+                    : 'bg-customPurple text-gray-700 hover:bg-gray-50'
                 }`}
               >
                 {category.name}
@@ -92,7 +74,7 @@ const Connect = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {mentors.map((mentor) => (
-            <div key={mentor.id} className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div key={mentor.id} className="bg-customPurple rounded-xl shadow-lg overflow-hidden">
               <div className="p-6">
                 <div className="flex items-center space-x-4">
                   <img
@@ -121,7 +103,7 @@ const Connect = () => {
                     <span>Available next week</span>
                   </div>
 
-                  <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-white bg-in digo-600 hover:bg-indigo-700">
+                  <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-white bg-indigo-600 hover:bg-indigo-700">
                     <Video className="h-5 w-5 mr-2" />
                     Schedule Session
                   </button>

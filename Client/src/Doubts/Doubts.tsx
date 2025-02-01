@@ -18,7 +18,7 @@ const DoubtSolver = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-slate-900 py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="p-6 bg-gradient-to-r from-purple-600 to-indigo-600">

@@ -5,7 +5,7 @@ import { UserCircle, Menu as MenuIcon } from 'lucide-react';
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-slate-900 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -15,10 +15,10 @@ const Navbar = () => {
           </div>
 
           <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600">Home</Link>
-            <Link to="/Connect" className="text-gray-700 hover:text-indigo-600">Find Mentor</Link>
-            <Link to="/counselling" className="text-gray-700 hover:text-indigo-600">AI Chat</Link>
-            <Link to="/Doubts" className="text-gray-700 hover:text-indigo-600">Doubt Solver</Link>
+            <Link to="/" className="text-zinc-50 hover:text-white">Home</Link>
+            <Link to="/Connect" className="text-zinc-50 hover:text-white">Find Mentor</Link>
+            <Link to="/counselling" className="text-zinc-50 hover:text-white">AI Chat</Link>
+            <Link to="/Doubts" className="text-zinc-50 hover:text-white">Doubt Solver</Link>
             
             <Link
               to="/login"

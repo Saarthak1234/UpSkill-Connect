@@ -26,14 +26,14 @@ const Counselling = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-slate-900 py-8">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Sparkles className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-3xl font-bold text-gray-900">AI Career Counselor</h1>
+            <h1 className="text-3xl font-bold text-indigo-400">AI Career Counselor</h1>
           </div>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-purple-100">
             Get personalized guidance for your career and educational journey
           </p>
         </div>
@@ -45,14 +45,14 @@ const Counselling = () => {
               onClick={() => setSelectedTopic(topic.id)}
               className={`p-6 rounded-xl shadow-sm transition-all duration-200 ${
                 selectedTopic === topic.id
-                  ? 'bg-indigo-600 text-white transform scale-105'
-                  : 'bg-white hover:shadow-md hover:scale-105'
+                  ? 'bg-customPurple text-black transform scale-105'
+                  : 'bg-customPurple hover:shadow-md hover:scale-105'
               }`}
             >
               <div className="flex flex-col items-center text-center">
                 <div
                   className={`mb-4 ${
-                    selectedTopic === topic.id ? 'text-white' : 'text-indigo-600'
+                    selectedTopic === topic.id ? 'text-black' : 'text-indigo-600'
                   }`}
                 >
                   {topic.icon}
