@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv"
-// import connectDB from "./src/Utils/dbConnection.js";
-// import authRoutes from "./src/Routes/auth.routes.js"
+import connectDB from "./Utils/dbConnection.js";
+import authRoutes from "./Routes/auth.routes.js"
 import cors from 'cors'
 
 dotenv.config()
@@ -11,6 +11,7 @@ dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.use(express.json());
 app.use(cors({
     origin: '*',
     methods: 'GET,POST,PUT,DELETE',
@@ -22,12 +23,11 @@ const server = app.listen(PORT, () => {
 
 })
 
-// connectDB();
+connectDB();
 
 app.get("/", (req, res) => {
     res.send("Welcome!! You are on home screen")
 })
 
-app.use(express.json());
 
-// app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes);

@@ -15,10 +15,14 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
+      isVerified: {
+        type: Boolean,
+        default: false, // Initially false, becomes true after OTP verification
+      },
       adminType :{
         type: String,
         required: true,
-        enum: ["mentee", "mentor"],
+        enum: ["Mentee", "Mentor"],
       },
     },
     {

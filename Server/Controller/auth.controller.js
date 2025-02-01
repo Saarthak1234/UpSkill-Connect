@@ -17,9 +17,9 @@ let tempUsers = new Map();  // Temporary storage for user data
 
 export const signup = async (req, res) => {
     try {
-        const { userName, email, password } = req.body;
+        const { userName, email, password, adminType } = req.body;
 
-        if (!userName || !email || !password) {
+        if (!userName || !email || !password || !adminType) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
@@ -65,7 +65,7 @@ export const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Store user details in memory
-        tempUsers.set(email, { userName, email, password: hashedPassword, otp });
+        tempUsers.set(email, { userName, email, password: hashedPassword, otp, adminType });
 
         return res.status(200).json({
             message: "OTP sent to your email. Please verify to complete signup.",
@@ -101,6 +101,7 @@ export const verifyOTP = async (req, res) => {
             email: tempUser.email,
             password: tempUser.password,
             isVerified: true,
+            adminType: tempUser.adminType
         });
 
         await newUser.save();
