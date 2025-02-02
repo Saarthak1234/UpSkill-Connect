@@ -41,6 +41,6 @@ UpSKill Connect is a platform designed to provide professional counseling throug
    npm install
 3. Run the code!!
   ```bash
-  For Client: npm run dev
-  For Server: npm start
+     For Client: npm run dev
+     For Server: npm start
 
