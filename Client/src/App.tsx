@@ -5,10 +5,10 @@ import Connect from './Connect/Connect';
 import DoubtSolver from './Doubts/Doubts';
 import Counselling from './Counselling/Counselling';
 import Signup from './SignUp/SignUp';
+import VerifyOTP from './SignUp/verifyOTP';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer';
 import AIChat from './Components/Chatbot';
-import Review from './Images/Review';
 
 import './index.css'; // Ensure Tailwind is included
 import LobbyScreen from './Call/Lobby';
@@ -25,8 +25,8 @@ function App() {
         <Route path="/counselling" element={<Counselling />} />
         <Route path="/doubts" element={<DoubtSolver />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/chat" element={<AIChat />} />
-        <Route path='/ocr' element={<Review/>}/>
         <Route path='/lobby' element={<LobbyScreen/>}/>
         <Route path='/room/:roomid' element={<RoomPage/>}/>
       </Routes>

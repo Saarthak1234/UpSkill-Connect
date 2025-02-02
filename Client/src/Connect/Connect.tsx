@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Star, Clock, Video } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Connect = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const navigate = useNavigate();
 
   const categories = [
     { id: 'all', name: 'All Categories' },
@@ -103,10 +105,15 @@ const Connect = () => {
                     <span>Available next week</span>
                   </div>
 
-                  <button className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-white bg-indigo-600 hover:bg-indigo-700">
+                  {/* Navigate to Lobby on Click */}
+                  <button
+                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-lg text-white bg-indigo-600 hover:bg-indigo-700"
+                    onClick={() => navigate('/lobby')}
+                  >
                     <Video className="h-5 w-5 mr-2" />
-                    Schedule Session
+                    Connect
                   </button>
+
                 </div>
               </div>
             </div>

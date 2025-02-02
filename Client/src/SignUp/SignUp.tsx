@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, UserCircle } from 'lucide-react';
+import axios from 'axios';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    userName: '',
     email: '',
     password: '',
-    role: 'mentee',
+    adminType: 'mentee',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle signup
+    
+    console.log(formData);
+
+    try {
+      // Send a POST request to the backend with the form data
+      const response = await axios.post('http://localhost:8000/api/auth/signup', formData);
+      
+      // Handle the response (e.g., success or error message)
+      if (response.status === 200) {
+        // Redirect to login page or show success message
+        navigate('/verify-otp',{ state: { email: formData.email } });
+      }
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   return (
@@ -31,6 +49,7 @@ const Signup = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
+            {/* Full Name */}
             <div>
               <label htmlFor="name" className="sr-only">
                 Full Name
@@ -46,11 +65,13 @@ const Signup = () => {
                   required
                   className="appearance-none rounded-lg relative block w-full px-12 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Full Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  value={formData.userName}
+                  onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
                 />
               </div>
             </div>
+
+            {/* Email */}
             <div>
               <label htmlFor="email" className="sr-only">
                 Email address
@@ -72,6 +93,8 @@ const Signup = () => {
                 />
               </div>
             </div>
+
+            {/* Password */}
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -93,17 +116,19 @@ const Signup = () => {
                 />
               </div>
             </div>
+
+            {/* Role Selection */}
             <div>
               <label className="text-sm font-medium text-gray-700">I want to be a:</label>
               <div className="mt-2 grid grid-cols-2 gap-4">
                 <button
                   type="button"
                   className={`flex items-center justify-center px-4 py-3 border rounded-lg ${
-                    formData.role === 'mentee'
+                    formData.adminType === 'mentee'
                       ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
                       : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
-                  onClick={() => setFormData({ ...formData, role: 'mentee' })}
+                  onClick={() => setFormData({ ...formData, adminType: 'mentee' })}
                 >
                   <UserCircle className="h-5 w-5 mr-2" />
                   Mentee
@@ -111,11 +136,11 @@ const Signup = () => {
                 <button
                   type="button"
                   className={`flex items-center justify-center px-4 py-3 border rounded-lg ${
-                    formData.role === 'mentor'
+                    formData.adminType === 'mentor'
                       ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
                       : 'border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
-                  onClick={() => setFormData({ ...formData, role: 'mentor' })}
+                  onClick={() => setFormData({ ...formData, adminType: 'mentor' })}
                 >
                   <User className="h-5 w-5 mr-2" />
                   Mentor
@@ -124,6 +149,7 @@ const Signup = () => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type="submit"

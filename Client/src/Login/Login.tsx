@@ -1,18 +1,34 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login
+    setError(""); // Clear any previous errors
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
+
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token); // Store JWT in localStorage
+        alert("Login successful!");
+        navigate('/'); // Redirect to home page
+        window.location.reload(); // Refresh to update navbar
+      }
+    } catch (error) {
+      setError(error.response?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (
-    <div className="min-h-screen  bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 flex items-center">
+    <div className="min-h-screen bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 flex items-center">
       <div className="max-w-md w-full mx-auto space-y-8 bg-purple-200 p-10 rounded-xl shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -25,6 +41,9 @@ const Login = () => {
             </Link>
           </p>
         </div>
+        
+        {error && <p className="text-red-600 text-center">{error}</p>}
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
@@ -71,8 +90,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-centre">
-
+          <div className="flex items-center justify-center">
             <div className="text-sm">
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                 Forgot your password?

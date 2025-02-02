@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Video, MessageSquare, Brain, Users, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, ReactNode } from "react";
+import { Video, MessageSquare, Brain, Users, ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const Home = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+const Home: React.FC = () => {
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkScroll = () => {
-      // Show button when user is near bottom of page
-      const nearBottom = 
-        window.innerHeight + window.scrollY >= 
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 100;
       setShowScrollTop(nearBottom);
     };
 
-    window.addEventListener('scroll', checkScroll);
-    return () => window.removeEventListener('scroll', checkScroll);
+    window.addEventListener("scroll", checkScroll);
+    return () => window.removeEventListener("scroll", checkScroll);
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -27,10 +28,11 @@ const Home = () => {
       <div
         className="relative bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://images.pexels.com/photos/6325984/pexels-photo-6325984.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          height: '600px'
+          backgroundImage:
+            "url('https://images.pexels.com/photos/6325984/pexels-photo-6325984.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "600px",
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -39,18 +41,19 @@ const Home = () => {
             Transform Your Learning Journey
           </h1>
           <p className="text-xl text-gray-200 mb-8 mt-10">
-            Connect with expert mentors, leverage AI-powered learning, and achieve your goals faster.
+            Connect with expert mentors, leverage AI-powered learning, and
+            achieve your goals faster.
           </p>
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => window.location.href = '/connect'}
+              onClick={() => navigate("/connect")}
               className="mt-24 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-indigo-600 bg-purple-100 hover:bg-gray-300"
             >
               Find a Mentor
             </button>
             <button
-              onClick={() => window.location.href = '/signup'}
-              className=" mt-24 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700"
+              onClick={() => navigate("/signup")}
+              className="mt-24 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700"
             >
               Get Started
             </button>
@@ -113,7 +116,7 @@ const Home = () => {
               Join thousands of students and mentors already on the platform.
             </p>
             <button
-              onClick={() => window.location.href = '/signup'}
+              onClick={() => navigate("/signup")}
               className="mt-8 inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-purple-100 hover:bg-indigo-50"
             >
               Sign up now
@@ -125,7 +128,13 @@ const Home = () => {
   );
 };
 
-const FeatureCard = ({ icon, title, description }) => (
+interface FeatureCardProps {
+  icon: ReactNode;
+  title: string;
+  description: string;
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
   <div className="bg-customPurple p-6 rounded-lg shadow-md text-center">
     <div className="flex justify-center mb-4">{icon}</div>
     <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>

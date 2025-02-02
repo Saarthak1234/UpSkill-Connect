@@ -136,8 +136,15 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: "Invalid email or password." });
         }
 
+        // Generate JWT token
         const token = jwt.sign({ _id: checkUser._id }, process.env.MY_SECRET, { expiresIn: "1h" });
-        return res.status(200).json({ message: "Login successful!", token });
+
+        // Send token in response, do NOT use localStorage in backend
+        return res.status(200).json({ 
+            message: "Login successful!", 
+            token, 
+            user: { id: checkUser._id, email: checkUser.email } 
+        });
     } catch (error) {
         console.error("Error in login:", error);
         return res.status(500).json({ message: "Internal Server Error" });
