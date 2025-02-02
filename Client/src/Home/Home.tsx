@@ -80,7 +80,7 @@ const Home: React.FC = () => {
               Everything you need to succeed
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Video className="h-8 w-8 text-indigo-600" />}
               title="Video Mentoring"
@@ -90,11 +90,6 @@ const Home: React.FC = () => {
               icon={<MessageSquare className="h-8 w-8 text-indigo-600" />}
               title="AI Chat Assistant"
               description="Get instant answers and guidance from our AI chatbot"
-            />
-            <FeatureCard
-              icon={<Brain className="h-8 w-8 text-indigo-600" />}
-              title="Doubt Solver"
-              description="Clear your doubts with AI-powered explanations and solutions"
             />
             <FeatureCard
               icon={<Users className="h-8 w-8 text-indigo-600" />}
