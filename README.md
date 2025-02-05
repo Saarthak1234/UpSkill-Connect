@@ -8,15 +8,15 @@ UpSkill Connect also offers its users AI-powered counseling, providing an access
 ## Features
 - Video calling functionality for real-time counseling sessions.
 - User profiles for both clients and counselors.
-- Session booking system with availability tracking.
-- Real-time chat during video sessions.
+- Session booking system with availability tracking. (Future Scope)
+- Real-time chat during video sessions.(Future Scope)
 - Secure authentication and user management.
-- Payment gateway integration for session payments (future).
+- Payment gateway integration for session payments (Future Scope).
 
 ## Tech Stack
 - **Frontend**: React.js, HTML, CSS
 - **Backend**: Node.js, Express.js
-- **Database**: MongoDB (or MongoDB Atlas for cloud storage)
+- **Database**: MongoDb
 - **Authentication**: JWT (JSON Web Token) for secure user authentication
 - **Real-time Communication**: WebRTC for video calling
 - **Other**: Socket.io for real-time messaging, Payment Gateway (future)
@@ -25,7 +25,7 @@ UpSkill Connect also offers its users AI-powered counseling, providing an access
 
 ### Prerequisites
 - Node.js
-- MongoDB (or MongoDB Atlas for cloud storage)
+- MongoDB
 - WebRTC-compatible browser for video calls
 
 ### Steps to Run the Project
