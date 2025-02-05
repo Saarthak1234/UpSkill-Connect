@@ -2,6 +2,8 @@
 
 ## Overview
 UpSKill Connect is a platform designed to provide professional counseling through video calls, offering a seamless and interactive experience between counselors and clients. The platform allows users to book counseling sessions, have real-time video conversations, and receive personalized guidance. The goal is to create a supportive environment where users can easily access professional help.
+UpSkill Connect also offers its users AI-powered counseling, providing an accessible and innovative approach to mental wellness support.
+
 
 ## Features
 - Video calling functionality for real-time counseling sessions.
