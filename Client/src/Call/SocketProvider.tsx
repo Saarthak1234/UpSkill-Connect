@@ -16,7 +16,7 @@ export const useSocket = (): Socket => {
 // Define the SocketProvider component
 export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Initialize the socket connection using useMemo to prevent unnecessary reinitialization
-  const socket = useMemo(() => io("http://localhost:8000", { autoConnect: false }), []);
+  const socket = useMemo(() => io("https://upskill-connect-backend.onrender.com", { autoConnect: false }), []);
 
   useEffect(() => {
     // Connect socket when component mounts
