@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://upskill-connect-frontend.onrender.com",
     methods: "GET,POST,PUT,DELETE",
   })
 );
@@ -27,7 +27,7 @@ connectDB();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: "https://upskill-connect-frontend.onrender.com",
     methods: ["GET", "POST"],
   },
 });
@@ -39,6 +39,15 @@ const socketidToEmailMap = new Map();
 // Socket.io event handling
 io.on("connection", (socket) => {
   console.log(`🔗 Socket Connected: ${socket.id}`);
+
+  //Error handling in sockets
+  socket.on("error", (error) => {
+    console.error("Socket error:", error);
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("Connection error:", error);
+  });
 
   socket.on("room:join", (data) => {
     const { email, room } = data;
