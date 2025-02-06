@@ -89,7 +89,7 @@ const VerifyOTP = () => {
     console.log(email, otpString);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/verifyOTP', {
+      const response = await axios.post('https://upskill-connect-backend.onrender.com/api/auth/verifyOTP', {
         email,
         otp: otpString
       });

@@ -1,29 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock } from 'lucide-react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+interface LoginResponse {
+  token: string;
+  message?: string;
+}
+
+interface ErrorResponse {
+  message: string;
+}
+
+const Login: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
-
+    setError(''); // Clear any previous errors
+    
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
+      const response = await axios.post<LoginResponse>(
+        'https://upskill-connect-backend.onrender.com/api/auth/login',
+        { email, password }
+      );
 
       if (response.data.token) {
         localStorage.setItem('token', response.data.token); // Store JWT in localStorage
-        alert("Login successful!");
+        alert('Login successful!');
         navigate('/'); // Redirect to home page
         window.location.reload(); // Refresh to update navbar
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Login failed. Please try again.");
+      const axiosError = error as AxiosError<ErrorResponse>;
+      setError(axiosError.response?.data?.message || 'Login failed. Please try again.');
     }
   };
 
@@ -63,7 +76,7 @@ const Login = () => {
                   className="appearance-none rounded-lg relative block w-full px-12 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -84,7 +97,7 @@ const Login = () => {
                   className="appearance-none rounded-lg relative block w-full px-12 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
               </div>
             </div>

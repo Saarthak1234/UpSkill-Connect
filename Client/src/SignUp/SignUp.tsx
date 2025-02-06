@@ -20,7 +20,7 @@ const Signup = () => {
 
     try {
       // Send a POST request to the backend with the form data
-      const response = await axios.post('http://localhost:8000/api/auth/signup', formData);
+      const response = await axios.post('https://upskill-connect-backend.onrender.com/api/auth/signup', formData);
       
       // Handle the response (e.g., success or error message)
       if (response.status === 200) {

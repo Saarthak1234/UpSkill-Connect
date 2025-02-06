@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Sparkles, Target, BookOpen, Briefcase, Loader2 } from "lucide-react";
 
-const API_KEY = "AIzaSyDSnyL8nrq_GiZWJgqfam90rvxh0M7GG0U";
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const Counselling = () => {
   const [selectedTopic, setSelectedTopic] = useState("");
