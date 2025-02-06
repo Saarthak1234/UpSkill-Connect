@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Star, Clock, Video } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

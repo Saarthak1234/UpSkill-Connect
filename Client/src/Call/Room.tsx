@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "./SocketProvider";
@@ -81,7 +81,7 @@ const RoomPage: React.FC = () => {
 
 
   const handleCallAccepted = useCallback(
-    ({ from, ans }: AnswerData) => {
+    ({ ans }: AnswerData) => {
       peer.setLocalDescription(ans);
       console.log("Call Accepted!");
       sendStreams(); // Automatically send tracks

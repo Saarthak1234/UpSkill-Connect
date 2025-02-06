@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactNode } from "react";
-import { Video, MessageSquare, Brain, Users, ChevronUp } from "lucide-react";
+import { Video, MessageSquare, Users, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
