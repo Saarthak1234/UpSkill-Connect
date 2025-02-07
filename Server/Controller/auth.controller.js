@@ -47,7 +47,7 @@ export const signup = async (req, res) => {
             email,
             password: hashedPassword,
             adminType,
-            isUserVerified: false,
+            isVerified: false,
             otp,
             otpExpires
         });
@@ -102,7 +102,7 @@ export const verifyOTP = async (req, res) => {
         }
 
         // Update user as verified and remove OTP
-        user.isUserVerified = true;
+        user.isVerified = true;
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
@@ -132,7 +132,7 @@ export const login = async (req, res) => {
         }
 
         // Ensure user is verified
-        if (!user.isUserVerified) {
+        if (!user.isVerified) {
             return res.status(403).json({ message: "Please verify your email before logging in." });
         }
 
