@@ -13,7 +13,7 @@ function generateOTP() {
 }
 
 // Signup Controller
-let tempUsers = new Map();  // Temporary storage for user data
+// let tempUsers = new Map();  // Temporary storage for user data
 
 export const signup = async (req, res) => {
     try {
@@ -23,20 +23,38 @@ export const signup = async (req, res) => {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+$/;
         if (!emailRegex.test(email)) {
             return res.status(400).json({ error: "Invalid email format" });
         }
 
-        const checkUser = await User.findOne({ email });
-        if (checkUser) {
-            return res.status(400).json({ error: "User with same email already exists" });
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: "User with this email already exists" });
         }
 
         // Generate OTP
         const otp = generateOTP();
+        const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // OTP valid for 5 minutes
 
-        // Send OTP email
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Create user with OTP
+        const newUser = new User({
+            userName,
+            email,
+            password: hashedPassword,
+            adminType,
+            isUserVerified: false,
+            otp,
+            otpExpires
+        });
+
+        await newUser.save();
+
+        // Send OTP via email
         const transporter = nodemailer.createTransport({
             service: "Gmail",
             auth: {
@@ -45,31 +63,18 @@ export const signup = async (req, res) => {
             },
         });
 
-        console.log(otp);
-        try {
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: email,
-                subject: "Your OTP for Signup",
-                html: `<h2>Welcome!</h2>
-                       <p>Your OTP for signup is: <strong>${otp}</strong></p>
-                       <p>If you didn't request this OTP, please ignore this email.</p>`,
-            });
-        } catch (error) {
-            console.error("Error in sending OTP:", error);
-            return res.status(500).json({ error: "Failed to send OTP email" });
-        }
-
-        // Hash the password before storing it temporarily
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Store user details in memory
-        tempUsers.set(email, { userName, email, password: hashedPassword, otp, adminType });
-
-        return res.status(200).json({
-            message: "OTP sent to your email. Please verify to complete signup.",
+        console.log(otp); // For debugging, remove in production
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: "Your OTP for Signup",
+            html: `<h2>Welcome!</h2>
+                   <p>Your OTP for signup is: <strong>${otp}</strong></p>
+                   <p>It will expire in 5 minutes. If you didn't request this OTP, please ignore this email.</p>`,
         });
+
+        return res.status(200).json({ message: "OTP sent to your email. Please verify to complete signup." });
+
     } catch (error) {
         console.error("Error in signup:", error);
         return res.status(500).json({ error: "Internal Server Error" });
@@ -85,36 +90,31 @@ export const verifyOTP = async (req, res) => {
             return res.status(400).json({ error: "Email and OTP are required" });
         }
 
-        // Check if email exists in temporary storage
-        const tempUser = tempUsers.get(email);
-        if (!tempUser) {
+        // Find user
+        const user = await User.findOne({ email });
+        if (!user) {
             return res.status(404).json({ error: "User not found or OTP expired" });
         }
 
-        if (tempUser.otp !== parseInt(otp)) {
-            return res.status(400).json({ error: "Invalid OTP" });
+        // Check OTP validity
+        if (user.otp !== parseInt(otp) || new Date() > user.otpExpires) {
+            return res.status(400).json({ error: "Invalid or expired OTP" });
         }
 
-        // Create user after successful verification
-        const newUser = new User({
-            userName: tempUser.userName,
-            email: tempUser.email,
-            password: tempUser.password,
-            isVerified: true,
-            adminType: tempUser.adminType
-        });
+        // Update user as verified and remove OTP
+        user.isUserVerified = true;
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
 
-        await newUser.save();
+        return res.status(200).json({ message: "Email verified successfully, user activated!" });
 
-        // Remove the user from temporary storage
-        tempUsers.delete(email);
-
-        return res.status(200).json({ message: "Email verified successfully, user created!" });
     } catch (error) {
         console.error("Error in verifyOTP:", error);
         return res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
 
 
 // Login Controller
@@ -126,25 +126,30 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "All fields are required." });
         }
 
-        const checkUser = await User.findOne({ email });
-        if (!checkUser) {
+        const user = await User.findOne({ email });
+        if (!user) {
             return res.status(404).json({ message: "User not found." });
         }
 
-        const isPasswordCorrect = await bcrypt.compare(password, checkUser.password || "");
+        // Ensure user is verified
+        if (!user.isUserVerified) {
+            return res.status(403).json({ message: "Please verify your email before logging in." });
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password || "");
         if (!isPasswordCorrect) {
             return res.status(401).json({ message: "Invalid email or password." });
         }
 
         // Generate JWT token
-        const token = jwt.sign({ _id: checkUser._id }, process.env.MY_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ _id: user._id }, process.env.MY_SECRET, { expiresIn: "1h" });
 
-        // Send token in response, do NOT use localStorage in backend
         return res.status(200).json({ 
             message: "Login successful!", 
             token, 
-            user: { id: checkUser._id, email: checkUser.email } 
+            user: { id: user._id, email: user.email } 
         });
+
     } catch (error) {
         console.error("Error in login:", error);
         return res.status(500).json({ message: "Internal Server Error" });
